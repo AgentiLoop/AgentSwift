@@ -78,8 +78,15 @@ private class SymbolFinder: SyntaxVisitor {
         return exactMatch ? name == query : name.localizedCaseInsensitiveContains(query)
     }
 
+    /// Cached per-file converter — building one walks the whole tree, so
+    /// creating it per symbol made search O(n²) in file size.
+    private var converter: SourceLocationConverter?
+
     private func location(of node: some SyntaxProtocol) -> (line: Int, column: Int) {
-        let loc = node.startLocation(converter: SourceLocationConverter(fileName: filePath, tree: node.root))
+        if converter == nil {
+            converter = SourceLocationConverter(fileName: filePath, tree: node.root)
+        }
+        let loc = node.startLocation(converter: converter!)
         return (loc.line, loc.column)
     }
 
