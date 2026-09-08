@@ -14,9 +14,6 @@ let package = Package(
         .library(
             name: "AgentSwift",
             targets: ["AgentSwift"]),
-//        .executable(
-//            name: "swift-checker-test",
-//            targets: ["SwiftCheckerTest"]),
     ],
     dependencies: [
         .package(url: "https://github.com/apple/swift-syntax.git", from: "603.0.2"),
@@ -31,19 +28,17 @@ let package = Package(
                 .product(name: "SwiftParser", package: "swift-syntax"),
                 .product(name: "SwiftParserDiagnostics", package: "swift-syntax"),
                 .product(name: "SwiftBasicFormat", package: "swift-syntax"),
-                .product(name: "SwiftCompilerPlugin", package: "swift-syntax"),
                 .product(name: "SwiftIDEUtils", package: "swift-syntax"),
                 .product(name: "SwiftOperators", package: "swift-syntax"),
                 .product(name: "SwiftRefactor", package: "swift-syntax"),
                 .product(name: "SwiftSyntaxBuilder", package: "swift-syntax"),
-                .product(name: "SwiftSyntaxMacros", package: "swift-syntax"),
-                .product(name: "SwiftSyntaxMacroExpansion", package: "swift-syntax")
+                .product(name: "SwiftSyntaxMacros", package: "swift-syntax")
             ]
         ),
-//        .testTarget(
-//            name: "SwiftCheckerTest",
-//            dependencies: ["xcf-swift"],
-//            path: "Sources/SwiftCheckerTest"
-//        )
+        .testTarget(
+            name: "AgentSwiftTests",
+            dependencies: ["AgentSwift"],
+            path: "Tests/xcf-swiftTests"
+        )
     ]
 )

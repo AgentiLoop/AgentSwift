@@ -6,13 +6,10 @@ import SwiftSyntaxMacros
 /// Visitor for analyzing and validating macro usage
 class MacroUsageVisitor: SwiftAnalysisVisitor {
     override func visit(_ node: AttributeSyntax) -> SyntaxVisitorContinueKind {
-        // Check for macro attributes
-        if node.attributeName.description.hasPrefix("@") {
-            let macroName = node.attributeName.description
-            
-            // Check for unsupported or invalid arguments for known macros
-            validateMacroArguments(node, macroName: macroName)
-        }
+        // `attributeName` is the bare type (e.g. `MainActor`) — the `@` is a separate
+        // token, so prefix it here to match the `"@…"` cases in validateMacroArguments.
+        let macroName = "@" + node.attributeName.trimmedDescription
+        validateMacroArguments(node, macroName: macroName)
         
         return .visitChildren
     }

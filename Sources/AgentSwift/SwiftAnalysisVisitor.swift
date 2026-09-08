@@ -110,23 +110,36 @@ class ImmutableAssignmentVisitor: SwiftAnalysisVisitor {
         return .visitChildren
     }
     
-    override func visit(_ node: AssignmentExprSyntax) -> SyntaxVisitorContinueKind {
-        // Get the left-hand side (target) of the assignment
-        if let target = Syntax(node).children(viewMode: .sourceAccurate).first?.as(DeclReferenceExprSyntax.self) {
-            let name = target.baseName.text
-            if constants.contains(name) {
-                let location = locationInfo(for: node)
-                issues.append(
-                    SourceKitIssue(
-                        description: "Cannot assign to value: '\(name)' is a 'let' constant",
-                        line: location.line,
-                        column: location.column,
-                        severity: "error"
-                    )
-                )
-            }
+    // `AssignmentExprSyntax` is only the `=` token; the target lives in the enclosing
+    // sequence (unfolded parse) or infix expression (folded). Handle both shapes.
+    override func visit(_ node: SequenceExprSyntax) -> SyntaxVisitorContinueKind {
+        let elements = Array(node.elements)
+        for (i, element) in elements.enumerated() where element.is(AssignmentExprSyntax.self) && i > 0 {
+            checkAssignment(target: elements[i - 1], at: element)
         }
         return .visitChildren
+    }
+
+    override func visit(_ node: InfixOperatorExprSyntax) -> SyntaxVisitorContinueKind {
+        if node.operator.is(AssignmentExprSyntax.self) {
+            checkAssignment(target: node.leftOperand, at: node.operator)
+        }
+        return .visitChildren
+    }
+
+    private func checkAssignment(target: ExprSyntax, at node: some SyntaxProtocol) {
+        guard let ref = target.as(DeclReferenceExprSyntax.self) else { return }
+        let name = ref.baseName.text
+        guard constants.contains(name) else { return }
+        let location = locationInfo(for: node)
+        issues.append(
+            SourceKitIssue(
+                description: "Cannot assign to value: '\(name)' is a 'let' constant",
+                line: location.line,
+                column: location.column,
+                severity: "error"
+            )
+        )
     }
 }
 

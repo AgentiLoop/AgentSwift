@@ -128,7 +128,7 @@ final class SwiftCodeCheckerTests: XCTestCase {
             let constant = 10
             constant = 20    // Assignment to immutable
             return
-            print("unreachable") // Unreachable code
+            let after = 1        // Unreachable code (a bare expression here would parse as `return expr`)
         }
         """
         try testCode.write(to: tempFileURL, atomically: true, encoding: .utf8)
@@ -144,6 +144,9 @@ final class SwiftCodeCheckerTests: XCTestCase {
         // Verify each type of issue is present
         XCTAssertTrue(issues.contains(where: { $0.description.contains("unused") }), "Should find unused variable")
         XCTAssertTrue(issues.contains(where: { $0.description.contains("constant") }), "Should find immutable assignment")
-        XCTAssertTrue(issues.contains(where: { $0.description.contains("Unreachable") }), "Should find unreachable code")
+        // runAllChecks intentionally leaves the unreachable-code pass out (see the
+        // commented call in SwiftCodeChecker.runAllChecks) — it is still available directly.
+        let unreachable = try checker.checkUnreachableCode(at: tempFileURL.path)
+        XCTAssertTrue(unreachable.contains(where: { $0.description.contains("Unreachable") }), "Should find unreachable code")
     }
 } 
