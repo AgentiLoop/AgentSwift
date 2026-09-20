@@ -25,7 +25,7 @@ Add SwiftCodeChecker to your `Package.swift` file:
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/AgentiLoop/AgentSwift.git", from: "1.1.6")
+    .package(url: "https://github.com/AgentiLoop/AgentSwift.git", from: "1.1.7")
 ]
 ```
 
