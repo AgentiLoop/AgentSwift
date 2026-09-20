@@ -25,15 +25,15 @@ Add SwiftCodeChecker to your `Package.swift` file:
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/codefreezeai/xcf-swift.git", from: "1.0.0")
+    .package(url: "https://github.com/AgentiLoop/AgentSwift.git", from: "1.1.6")
 ]
 ```
 
 ### Building from Source
 
 ```bash
-git clone https://github.com/codefreezeai/xcf-swift.git
-cd xcf-swift
+git clone https://github.com/AgentiLoop/AgentSwift.git
+cd AgentSwift
 swift build
 ```
 
@@ -121,8 +121,8 @@ for issue in allIssues {
 
 ## Requirements
 
-- Swift 6.1+ 
-- macOS 13+
+- Swift 6.2+
+- macOS 26+
 
 ## License
 
