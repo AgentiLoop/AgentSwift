@@ -16,7 +16,7 @@ let package = Package(
             targets: ["AgentSwift"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/apple/swift-syntax.git", from: "603.0.2"),
+        .package(url: "https://github.com/apple/swift-syntax.git", from: "604.0.0"),
     ],
     targets: [
         // Targets are the basic building blocks of a package, defining a module or a test suite.
