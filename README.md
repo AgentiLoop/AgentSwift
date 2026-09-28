@@ -25,7 +25,7 @@ Add SwiftCodeChecker to your `Package.swift` file:
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/AgentiLoop/AgentSwift.git", from: "1.1.7")
+    .package(url: "https://github.com/AgentiLoop/AgentSwift.git", from: "1.1.11")
 ]
 ```
 
@@ -121,8 +121,16 @@ for issue in allIssues {
 
 ## Requirements
 
-- Swift 6.2+
-- macOS 26+
+- Swift 6.4+
+- macOS 14+
+
+## Part of AgentiLoop Agent!
+
+AgentSwift is one of the open-source building blocks of **[AgentiLoop Agent!](https://github.com/AgentiLoop/Agent)**, the native AI agent for macOS 14.6+ on Apple Silicon and Intel. Agent! codes in Xcode, drives any Mac app, runs shell as you or as root, and works with 23 LLM providers plus on-device Apple Intelligence.
+
+🌐 [agentiloop.ai](https://agentiloop.ai/) · ⬇️ [Download Agent!](https://github.com/AgentiLoop/Agent/releases/latest) · 🍺 `brew install --cask agentiloop-agent` · 💻 CLIs: [Rust](https://github.com/AgentiLoop/AgentiLoopCLI) / [Go](https://github.com/AgentiLoop/AgentiLoopGo)
+
+**More Agent! packages:** [AgentAccess](https://github.com/AgentiLoop/AgentAccess) · [AgentAudit](https://github.com/AgentiLoop/AgentAudit) · [AgentColorSyntax](https://github.com/AgentiLoop/AgentColorSyntax) · [AgentD1F](https://github.com/AgentiLoop/AgentD1F) · [AgentEventBridges](https://github.com/AgentiLoop/AgentEventBridges) · [AgentLLM](https://github.com/AgentiLoop/AgentLLM) · [AgentMCP](https://github.com/AgentiLoop/AgentMCP) · [AgentTerminalNeo](https://github.com/AgentiLoop/AgentTerminalNeo) · [AgentTools](https://github.com/AgentiLoop/AgentTools) · [AgentScripts](https://github.com/AgentiLoop/AgentScripts)
 
 ## License
 
