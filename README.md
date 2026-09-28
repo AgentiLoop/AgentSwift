@@ -135,3 +135,7 @@ AgentSwift is one of the open-source building blocks of **[AgentiLoop Agent!](ht
 ## License
 
 This project is licensed under the MIT License - see the LICENSE file for details. 
+
+---
+
+Copyright © 2026 AgentiLoop.ai, a Logos InkPen LLC company. All rights reserved.
